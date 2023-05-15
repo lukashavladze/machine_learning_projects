@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn import metrics
 
 # reading csv file
 customers = pd.read_csv('Ecommerce Customers')
@@ -48,4 +49,10 @@ plt.xlabel('Y Test (real Values)')
 plt.ylabel('Predicted Values')
 plt.show()
 
-# evaluating our model
+
+print('MAE ', metrics.mean_absolute_error(y_test, predictions))
+print('MSE ', metrics.mean_squared_error(y_test, predictions))
+print('RMSE ', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+
+print(metrics.explained_variance_score(y_test, predictions))
+
