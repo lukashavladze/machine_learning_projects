@@ -1,9 +1,10 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report,confusion_matrix
+from sklearn.ensemble import RandomForestClassifier
 
 # getting data
 loans = pd.read_csv('loan_data.csv')
@@ -38,4 +39,26 @@ final_data = pd.get_dummies(loans,columns=cat_feats,drop_first=True)
 X = final_data.drop('not.fully.paid',axis=1)
 y = final_data['not.fully.paid']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=101)
+
+# training decision tree model
+dtree = DecisionTreeClassifier()
+dtree.fit(X_train, y_train)
+
+# predictions and evaluations of decision tree
+predictions = dtree.predict(X_test)
+
+print(classification_report(y_test, predictions))
+print(confusion_matrix(y_test, predictions))
+
+# training random forest model
+# creating instance of the randomforestclassifier
+
+rfc = RandomForestClassifier(n_estimators=600)
+rfc.fit(X_train, y_train)
+
+predictions_r = rfc.predict(X_test)
+print(classification_report(y_test, predictions_r))
+print(confusion_matrix(y_test, predictions_r))
+
+
 
