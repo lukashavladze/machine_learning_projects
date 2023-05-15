@@ -57,4 +57,14 @@ plt.xlabel('K')
 plt.ylabel('Error Rate')
 plt.show()
 
-# retraining with new K value
+# retraining with best K value
+knn = KNeighborsClassifier(n_neighbors=30)
+
+knn.fit(X_train,y_train)
+pred = knn.predict(X_test)
+
+print('WITH K=30')
+print('\n')
+print(confusion_matrix(y_test,pred))
+print('\n')
+print(classification_report(y_test,pred))
