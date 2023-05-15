@@ -35,3 +35,17 @@ lm = LinearRegression()
 # training our model
 lm.fit(X_train, y_train)
 
+# printing coefficients of our model
+print()
+print(lm.coef_)
+
+# making predictions
+predictions = lm.predict(X_test)
+
+# creating scatterplot of the real test values versus predicted values
+plt.scatter(y_test, predictions)
+plt.xlabel('Y Test (real Values)')
+plt.ylabel('Predicted Values')
+plt.show()
+
+# evaluating our model
