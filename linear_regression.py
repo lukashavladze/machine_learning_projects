@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 
 # reading csv file
 customers = pd.read_csv('Ecommerce Customers')
@@ -15,4 +17,21 @@ plt.show()
 # using jointplot to create 2D hex bin plot comparing Time on App and Length of Membership
 sns.jointplot(x='Time on App', y='Length of Membership', kind='hex', data=customers)
 plt.show()
+
+# printing our data column names
+print(customers.columns)
+
+# making data for training and testing
+y = customers['Yearly Amount Spent']
+X = customers[['Avg. Session Length', 'Time on App',
+               'Time on Website', 'Length of Membership']]
+
+# splitting data into training and testing
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+
+# creating instance of Linearregression model named lm
+lm = LinearRegression()
+
+# training our model
+lm.fit(X_train, y_train)
 
